@@ -18,6 +18,15 @@ def read_file(path):
     
     return nb_days,all_books,libs
 
-def write_output(path):
+def write_output(path,libs):
     f = open(path,"w")
+    nb_libs = len(libs)
+    f.write(str(nb_libs) + "\n")
+    for i,element in enumerate(libs):
+        id_lib = element[0]
+        nb_books = len(element[1])
+        f.write(str(id_lib) + " " + str(nb_books)+"\n")
+        for i in range(len(element[1])-1):
+            f.write(str(element[1][i]) + " ")
+        f.write(str(element[1][-1])+"\n")
     

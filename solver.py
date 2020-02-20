@@ -1,8 +1,20 @@
 
-def get_books_from_library(chosen_book,library,all_books):
+def get_books_from_library(chosen_books, library, all_books):
   
   #Get the list of the books which correpond to the selected library
+  books_list = list()
+  for book in library.books: #Create the corresponding book list
+    books_list.append([book,all_books[book]]) 
   
+  books_list = sorted(books_list,key = lambda x:x[1],reverse = True)
+  
+  chosen_books_from_library = list()
+  j = 0
+  while ( j < len(books_list)) and (len(chosen_books_from_library) < library.speed):
+    if books_list[j][0] not in chosen_books:
+       chosen_books_from_library.append(books_list[j])
+    j+=1
+
   return 0
 
 def library_solving(libraries_list,D,all_books):

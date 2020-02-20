@@ -1,8 +1,8 @@
-from reader import read_file
+from reader import read_file,write_output
 from Library import Library
 
-path = "input/a_example.txt"
+path = "output/a_example.txt"
 
-nb_days,all_books,libs = read_file(path)
+libs = [[0,[1,5,8]],[1,[5,6,7]]]
 
-print(nb_days,all_books,"\n",libs[0],"\n",libs[1])
+write_output(path,libs)
