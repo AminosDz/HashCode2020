@@ -9,19 +9,24 @@ def read_file(path):
     i = 2
     id = 0
     libs = []
-    repet_all_books = [0] * nb_books
-    all_repet = 0
     while (i<len(lines)-1):
         nb_book_lib, signup_time, speed = map(int,lines[i].split(" ")[0:3])
         books_lib = list(map(int,lines[i+1].split(" ")))
-        for book in books_lib:
-            repet_all_books[book] += 1
-            all_repet += 1
         library = Library(id,nb_book_lib,signup_time,speed,books_lib,all_books)
         libs.append(library)
         i += 2
         id += 1
-    
+
+    repet_all_books = []
+    all_repet = 0
+    for i, book in enumerate(all_books):
+        counter = 0
+        for j, lib in enumerate(libs):
+            if i in lib.books:
+                counter +=1
+                all_repet += 1
+        
+        repet_all_books.append(counter)
     for i, book in enumerate(all_books):
         repet_all_books[i] /= all_repet
     
@@ -29,9 +34,8 @@ def read_file(path):
     for j, lib in enumerate(libs):
         sum_freq = 0
         for book in lib.books:
-            sum_freq += repet_all_books[book]
-        
-        lib.factor /= sum_freq
+            sum_freq += all_books[book] / repet_all_books[book]
+        lib.factor = (sum_freq * lib.speed) / lib.signup_time
 
 
     print("Finished Reading")
